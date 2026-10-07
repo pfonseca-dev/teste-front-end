@@ -180,12 +180,17 @@
 @media (max-width: 768px) {
   .top-bar {
     &__content {
+      min-height: 32px;
       justify-content: center;
       gap: 16px;
     }
 
-    span:not(:first-child) {
-      display: none;
+    span {
+      font-size: 11px;
+
+      &:not(:first-child) {
+        display: none;
+      }
     }
   }
 
