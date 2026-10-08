@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { useProduct } from "../../hooks/useProduct";
 import { ProductCard } from "../ProductCard/ProductCard";
+import { ProductModal } from "../ProductModal/ProductModal";
 import type { Product } from "../../types/product";
 
 import "./ProductShowcase.scss";
@@ -18,8 +19,8 @@ const productCategorie = [
 ]
 
 export function ProductShowcase() {
-    const [currentIndex, setCurrentIndex] = useState(0);
     const { products, loading, error } = useProduct();
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -43,79 +44,72 @@ export function ProductShowcase() {
     }
 
     function handleSelectProduct(product: Product) {
-        console.log("Selected product:", product);
+        setSelectedProduct(product);
     }
 
     return (
         <section className="product-showcase">
-      <div className="container">
-        <header className="product-showcase__header">
-            <h2 className="product-showcase__title">
-                Produtos relacionados
-            </h2>
+            <div className="container">
+                <header className="product-showcase__header">
+                    <h2 className="product-showcase__title">
+                        Produtos relacionados
+                    </h2>
 
-            <nav
-                className="product-showcase__categories"
-                aria-label="Categorias da vitrine"
-            >
-                {productCategorie.map((category, index) => (
-                <button
-                    key={category}
-                    type="button"
-                    className={`product-showcase__category ${
-                    index === 0 ? 'product-showcase__category--active' : ''
-                    }`}
-                >
-                    {category}
-                </button>
-                ))}
-            </nav>
-        </header>
+                    <nav className="product-showcase__categories" aria-label="Categorias da vitrine">
+                        {productCategorie.map((category, index) => (
+                        <button
+                            key={category}
+                            type="button"
+                            className={`product-showcase__category ${
+                            index === 0 ? 'product-showcase__category--active' : ''
+                            }`}
+                        >
+                            {category}
+                        </button>
+                        ))}
+                    </nav>
+                </header>
 
-        {loading && (
-          <p className="product-showcase__message">
-            Carregando produtos...
-          </p>
-        )}
+                {loading && (
+                <p className="product-showcase__message">
+                    Carregando produtos...
+                </p>
+                )}
 
-        {error && (
-          <p className="product-showcase__message" role="alert">
-            Não foi possível carregar os produtos.
-          </p>
-        )}
+                {error && (
+                <p className="product-showcase__message" role="alert">
+                    Não foi possível carregar os produtos.
+                </p>
+                )}
 
-        {!loading && !error && (
-            <div className="product-showcase__carousel">
-                <button
-                    type="button"
-                    className="product-showcase__arrow product-showcase__arrow--left"
-                    aria-label="Ver produtos anteriores"
-                    onClick={() => scrollCarousel('left')}
-                >
-                    <ChevronLeft size={24} />
-                </button>
+                {!loading && !error && (
+                    <div className="product-showcase__carousel">
+                        <button type="button" className="product-showcase__arrow product-showcase__arrow--left" aria-label="Ver produtos anteriores" onClick={() => scrollCarousel('left')}>
+                            <ChevronLeft size={24} />
+                        </button>
 
-                <div className="product-showcase__grid" ref={carouselRef}>
-                    {products.map((product, index) => (
-                    <ProductCard
-                        key={`${product.productName}-${index}`}
-                        product={product}
-                        onSelect={handleSelectProduct}
-                    />
-                    ))}
-                </div>
+                        <div className="product-showcase__grid" ref={carouselRef}>
+                            {products.map((product, index) => (
+                            <ProductCard
+                                key={`${product.productName}-${index}`}
+                                product={product}
+                                onSelect={handleSelectProduct}
+                            />
+                            ))}
+                        </div>
 
-                <button
-                    type="button"
-                    className="product-showcase__arrow product-showcase__arrow--right"
-                    aria-label="Ver próximos produtos"
-                    onClick={() => scrollCarousel('right')}
-                >
-                    <ChevronRight size={24} />
-                </button>
+                        <button type="button" className="product-showcase__arrow product-showcase__arrow--right" aria-label="Ver próximos produtos" onClick={() => scrollCarousel('right')}>
+                            <ChevronRight size={24} />
+                        </button>
+                    </div>
+                )}
             </div>
-        )}
-      </div>
-    </section>
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    onClose={() => setSelectedProduct(null)}
+                />
+            )}
+        </section>
     );
 }
