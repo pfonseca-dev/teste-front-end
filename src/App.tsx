@@ -2,6 +2,7 @@ import { Categories } from "./components/Categories/Categories"
 import { Header } from "./components/Header/Header"
 import { Hero } from "./components/Hero/Hero"
 import { useProduct } from "./hooks/useProduct"
+import { ProductShowcase } from "./components/ProductShowcase/ProductShowcase"
 
 function App() {
   const { products, loading, error } = useProduct();
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Hero />
         <Categories />
+        <ProductShowcase />
       </main>
     </>
   )
