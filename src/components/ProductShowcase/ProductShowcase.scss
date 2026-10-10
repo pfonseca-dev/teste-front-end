@@ -66,6 +66,25 @@
     }
   }
 
+  &__view-all {
+    display: block;
+    width: fit-content;
+
+    margin: 4px auto 0;
+
+    color: $color-text;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+
+    transition: color $transition-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
   &__carousel {
     position: relative;
   }

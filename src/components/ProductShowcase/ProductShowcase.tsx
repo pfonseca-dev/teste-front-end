@@ -18,7 +18,11 @@ const productCategorie = [
     'VER TODOS',
 ]
 
-export function ProductShowcase() {
+interface ProductShowcaseProps {
+    showCategories?: boolean;
+}
+
+export function ProductShowcase({ showCategories = true }: ProductShowcaseProps) {
     const { products, loading, error } = useProduct();
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -55,19 +59,18 @@ export function ProductShowcase() {
                         Produtos relacionados
                     </h2>
 
-                    <nav className="product-showcase__categories" aria-label="Categorias da vitrine">
-                        {productCategorie.map((category, index) => (
-                        <button
-                            key={category}
-                            type="button"
-                            className={`product-showcase__category ${
-                            index === 0 ? 'product-showcase__category--active' : ''
-                            }`}
-                        >
-                            {category}
-                        </button>
-                        ))}
-                    </nav>
+                    {showCategories ? (
+                        <nav className="product-showcase__categories" aria-label="Categorias da vitrine">
+                            {productCategorie.map((category, index) => (
+                            <button key={category} type="button" className={`product-showcase__category ${
+                                index === 0 ? 'product-showcase__category--active' : ''}`}>
+                                {category}
+                            </button>
+                            ))}
+                        </nav>
+                    ) : (
+                        <a href="#" className="product-showcase__view-all">Ver todos</a>
+                    )}
                 </header>
 
                 {loading && (
