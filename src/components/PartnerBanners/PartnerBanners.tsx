@@ -19,7 +19,7 @@ export function PartnerBanner({title = 'Parceiros', description = 'Lorem ipsum d
                             <div className="partner-banner__content">
                                 <h2 className="partner-banner__title">{title}</h2>
                                 <p className="partner-banner__description">{description}</p>
-                                <button type="button" className="partner-banner__button">{buttonText}</button>
+                                <button type="button" className="partner-banner__button" aria-disabled="true" tabIndex={-1} title="Página do parceiro indisponível neste teste">{buttonText}</button>
                             </div>
                         </article>
                     ))}

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useRef } from "react";
+import { useCallback, useId, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { ProductCard } from "../ProductCard/ProductCard";
@@ -18,16 +17,20 @@ const productCategorie = [
 ]
 
 interface ProductShowcaseProps {
+    id?: string;
     showCategories?: boolean;
     products: Product[];
     loading: boolean;
     error: string | null;
 }
 
-export function ProductShowcase({ showCategories = true, products, loading, error }: ProductShowcaseProps) {
+export function ProductShowcase({ id, showCategories = true, products, loading, error }: ProductShowcaseProps) {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
     const carouselRef = useRef<HTMLDivElement>(null);
+    const titleId = useId();
+    const carouselId = useId();
+    const closeModal = useCallback(() => setSelectedProduct(null), []);
 
     function scrollCarousel(direction: 'left' | 'right') {
         const carousel = carouselRef.current;
@@ -44,7 +47,7 @@ export function ProductShowcase({ showCategories = true, products, loading, erro
 
         carousel.scrollBy({
             left: direction === 'right' ? distance : -distance,
-            behavior: 'smooth',
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
         });
     }
 
@@ -53,29 +56,29 @@ export function ProductShowcase({ showCategories = true, products, loading, erro
     }
 
     return (
-        <section className="product-showcase">
+        <section id={id} className="product-showcase" aria-labelledby={titleId}>
             <div className="container">
                 <header className="product-showcase__header">
-                    <h2 className="product-showcase__title">
+                    <h2 id={titleId} className="product-showcase__title">
                         Produtos relacionados
                     </h2>
 
                     {showCategories ? (
-                        <nav className="product-showcase__categories" aria-label="Categorias da vitrine">
+                        <div className="product-showcase__categories" role="group" aria-label="Categorias da vitrine (filtros indisponíveis neste teste)">
                             {productCategorie.map((category, index) => (
-                            <button key={category} type="button" className={`product-showcase__category ${
+                            <button key={category} type="button" aria-disabled="true" tabIndex={-1} title="Filtro indisponível neste teste" className={`product-showcase__category ${
                                 index === 0 ? 'product-showcase__category--active' : ''}`}>
                                 {category}
                             </button>
                             ))}
-                        </nav>
+                        </div>
                     ) : (
-                        <a href="#" className="product-showcase__view-all">Ver todos</a>
+                        <a href="#products" className="product-showcase__view-all">Ver todos</a>
                     )}
                 </header>
 
                 {loading && (
-                <p className="product-showcase__message">
+                <p className="product-showcase__message" role="status">
                     Carregando produtos...
                 </p>
                 )}
@@ -86,13 +89,23 @@ export function ProductShowcase({ showCategories = true, products, loading, erro
                 </p>
                 )}
 
-                {!loading && !error && (
+                {!loading && !error && products.length === 0 && (
+                    <p className="product-showcase__message" role="status">Nenhum produto disponível no momento.</p>
+                )}
+
+                {!loading && !error && products.length > 0 && (
                     <div className="product-showcase__carousel">
-                        <button type="button" className="product-showcase__arrow product-showcase__arrow--left" aria-label="Ver produtos anteriores" onClick={() => scrollCarousel('left')}>
-                            <ChevronLeft size={24} />
+                        <button type="button" className="product-showcase__arrow product-showcase__arrow--left" aria-label="Ver produtos anteriores" aria-controls={carouselId} onClick={() => scrollCarousel('left')}>
+                            <ChevronLeft size={24} aria-hidden="true" />
                         </button>
 
-                        <div className="product-showcase__grid" ref={carouselRef}>
+                        <div id={carouselId} className="product-showcase__grid" ref={carouselRef} tabIndex={0} role="group" aria-label="Produtos; use as setas do teclado para navegar" onKeyDown={(event) => {
+                            if (event.target !== event.currentTarget) return;
+                            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                                event.preventDefault();
+                                scrollCarousel(event.key === 'ArrowLeft' ? 'left' : 'right');
+                            }
+                        }}>
                             {products.map((product, index) => (
                             <ProductCard
                                 key={`${product.productName}-${index}`}
@@ -102,8 +115,8 @@ export function ProductShowcase({ showCategories = true, products, loading, erro
                             ))}
                         </div>
 
-                        <button type="button" className="product-showcase__arrow product-showcase__arrow--right" aria-label="Ver próximos produtos" onClick={() => scrollCarousel('right')}>
-                            <ChevronRight size={24} />
+                        <button type="button" className="product-showcase__arrow product-showcase__arrow--right" aria-label="Ver próximos produtos" aria-controls={carouselId} onClick={() => scrollCarousel('right')}>
+                            <ChevronRight size={24} aria-hidden="true" />
                         </button>
                     </div>
                 )}
@@ -111,7 +124,7 @@ export function ProductShowcase({ showCategories = true, products, loading, erro
             {selectedProduct && (
                 <ProductModal
                     product={selectedProduct}
-                    onClose={() => setSelectedProduct(null)}
+                    onClose={closeModal}
                 />
             )}
         </section>

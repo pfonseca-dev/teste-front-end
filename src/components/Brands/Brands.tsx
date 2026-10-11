@@ -11,7 +11,7 @@ const brands = [
 
 export function Brands(){
     return(
-        <section className="brands" aria-label="brands-title">
+        <section className="brands" aria-labelledby="brands-title">
             <div className="container">
                 <h2 id="brands-title" className="brands__title">Navegue por marcas</h2>
                 <ul className="brands__list">

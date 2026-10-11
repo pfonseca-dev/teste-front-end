@@ -91,6 +91,38 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .partner-banner {
+    padding-block: 24px;
+
+    &__card {
+      min-height: 240px;
+      padding: 24px;
+      background-size: cover;
+    }
+
+    &__content {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    &__title {
+      font-size: 28px;
+    }
+
+    &__description {
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    &__button {
+      min-width: 130px;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .partner-banner {
     padding-block: 24px;

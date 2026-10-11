@@ -46,7 +46,10 @@ export function ProductCard({ product, onSelect }: ProductCardProps) {
                         </span>
                     )}
                 </div>
-                <button type="button" className="product-card__button" onClick={() => onSelect(product)}>COMPRAR</button>
+                <button type="button" className="product-card__button" aria-label={`Comprar ${product.productName}: ver detalhes`} aria-haspopup="dialog" onClick={(event) => {
+                    event.currentTarget.focus({ preventScroll: true });
+                    onSelect(product);
+                }}>COMPRAR</button>
             </div>
         </article>
     );

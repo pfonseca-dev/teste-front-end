@@ -18,7 +18,7 @@ function App() {
       <main>
         <Hero />
         <Categories />
-        <ProductShowcase products={products} loading={loading} error={error}/>
+        <ProductShowcase id="products" products={products} loading={loading} error={error}/>
         <PartnerBanner />
         <ProductShowcase showCategories= {false} products={products} loading={loading} error={error}/>
         <PartnerBanner />

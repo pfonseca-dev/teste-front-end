@@ -10,6 +10,11 @@ const navigationLinks = [
   'ASSINATURA',
 ];
 
+const navigationTargets: Record<string, string> = {
+  'TODAS CATEGORIAS': '#categories',
+  'OFERTAS DO DIA': '#products',
+};
+
 export function Navigation() {
   const activeLink = 'OFERTAS DO DIA';
 
@@ -19,7 +24,10 @@ export function Navigation() {
         {navigationLinks.map((link) => (
           <li key={link} className="navigation__item">
             <a
-              href="#"
+              href={navigationTargets[link]}
+              role={navigationTargets[link] ? undefined : 'link'}
+              aria-disabled={navigationTargets[link] ? undefined : true}
+              title={navigationTargets[link] ? undefined : 'Página indisponível neste teste'}
               className={`navigation__link ${
                 link === activeLink ? 'navigation__link--active' : ''
               }`}

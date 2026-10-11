@@ -21,7 +21,7 @@ const categories = [
 
 export function Categories() {
     return (
-        <section className="categories" aria-label="Categorias de produtos">
+        <section id="categories" className="categories" aria-label="Categorias de produtos">
             <div className="container">
                 <ul className="categories__list">
                     {categories.map(({ name, icon, active }) => (
@@ -30,7 +30,7 @@ export function Categories() {
                             active ? 'categories__item--active' : ''
                         }`}
                         >
-                            <button type="button" className="categories__button">
+                            <button type="button" className="categories__button" aria-disabled="true" tabIndex={-1} title="Filtro por categoria indisponível neste teste">
                                 <span className="categories__icon">
                                     <img src={icon} alt="" className="categories__image"/>
                                 </span>

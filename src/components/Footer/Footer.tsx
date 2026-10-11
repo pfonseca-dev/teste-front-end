@@ -5,26 +5,26 @@ const footerGrups = [
     {
         title: 'Institucional',
         links: [
-            {label: 'Sobre Nós', href: '#sobre'},
-            {label: 'Movimento', href: '#movimento'},
-            {label: 'Trabalhe conosco', href: '#carreiras'}
+            {label: 'Sobre Nós'},
+            {label: 'Movimento'},
+            {label: 'Trabalhe conosco'}
         ]
 
     },
     {
         title: 'Ajuda',
         links: [
-            {label: 'Suporte', href: '#suporte'},
-            {label: 'Fale Conosco', href: '#contato'},
-            {label: 'Perguntas Frequentes', href: '#perguntas'}
+            {label: 'Suporte'},
+            {label: 'Fale Conosco'},
+            {label: 'Perguntas Frequentes'}
         ]
     },
     {
         title: 'Termos',
         links: [
-            {label: 'Termos e Condições', href: '#termos'},
-            {label: 'Políticas e Privacidade', href: '#policitas'},
-            {label: 'Trocas e Devoluções', href: '#devolucao'}
+            {label: 'Termos e Condições'},
+            {label: 'Políticas e Privacidade'},
+            {label: 'Trocas e Devoluções'}
         ]
     }
 ]
@@ -47,14 +47,14 @@ export function Footer(){
                             <img src={LinkedIn} alt="LinkedIn" className="footer__social-media"/>
                         </div>
                     </div>
-                    <nav className="footer__navigation" aria-label="Links do footer">
+                    <nav className="footer__navigation" aria-label="Links institucionais (indisponíveis neste teste)">
                         {footerGrups.map((group) =>
                             <div className="footer__group" key={group.title}>
-                                <h3 className="footer__title">{group.title}</h3>
+                                <h2 className="footer__title">{group.title}</h2>
                                 <ul className="footer__links">
                                     {group.links.map((link) =>
                                         <li key={link.label}>
-                                            <a href={link.href}>{link.label}</a>
+                                            <a role="link" aria-disabled="true" title="Página indisponível neste teste">{link.label}</a>
                                         </li>
                                     )}
                                 </ul>
