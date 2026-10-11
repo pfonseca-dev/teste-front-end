@@ -1,5 +1,16 @@
 @use './reset';
 @use './variables' as *;
+@use './mixins' as *;
+
+@each $weight in (400, 500, 600, 700) {
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url('../assets/fonts/poppins-#{$weight}.ttf') format('truetype');
+  }
+}
 
 html,
 body,
@@ -9,6 +20,8 @@ body,
 
 body {
   font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
   color: $color-text;
   background: $color-background;
   -webkit-font-smoothing: antialiased;
@@ -16,8 +29,24 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: $container-max-width;
-  margin-inline: auto;
-  padding-inline: $container-padding;
+  @include container;
+}
+
+:where(a, button, input):focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

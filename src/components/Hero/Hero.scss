@@ -9,7 +9,7 @@
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.8) 0%,
       rgba(0, 0, 0, 0.25) 55%,
       rgba(0, 0, 0, 0) 100%
     ),
@@ -17,22 +17,23 @@
 
   &__content {
     width: 100%;
+    padding-block: 80px 50px;
   }
 
   &__title {
-    max-width: 520px;
+    max-width: 650px;
 
     color: $color-white;
-    font-size: 44px;
+    font-size: 48px;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.05;
   }
 
   &__discount {
-    margin-top: 12px;
+    margin-top: 20px;
 
     color: $color-white;
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 400;
 
     strong {
@@ -46,21 +47,50 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 28px;
+    min-width: 206px;
+    min-height: 50px;
+    margin-top: 40px;
+    margin-left: 8px;
     padding: 12px 28px;
 
-    border-radius: $radius-md;
+    border-radius: 5px;
 
     background: $color-accent;
     color: $color-text;
 
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 
     transition: transform $transition-default;
 
     &:hover {
       transform: translateY(-2px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 340px;
+
+    &__content {
+      padding-block: 40px;
+    }
+
+    &__title {
+      max-width: 480px;
+      font-size: clamp(30px, 5.8vw, 42px);
+      line-height: 1.15;
+    }
+
+    &__discount {
+      margin-top: 20px;
+      font-size: clamp(20px, 4vw, 28px);
+    }
+
+    &__button {
+      margin-top: 28px;
+      margin-left: 0;
     }
   }
 }

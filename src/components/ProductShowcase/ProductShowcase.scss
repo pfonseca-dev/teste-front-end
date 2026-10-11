@@ -1,22 +1,29 @@
 @use '../../styles/variables' as *;
 
 .product-showcase {
-  padding-block: 24px;
+  --carousel-inset: 0px;
+
+  padding-block: 48px;
+
+  &:last-child {
+    padding-bottom: 78px;
+  }
 
   &__header {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   &__title {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: 34px;
 
-    margin-bottom: 20px;
+    margin: 0 70px;
 
     color: $color-primary;
-    font-size: 24px;
+    font-size: 30px;
+    line-height: 1.5;
     font-weight: 700;
     text-align: center;
 
@@ -32,13 +39,15 @@
   &__categories {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
+    // Match the card edges, accounting for the grid's shadow padding.
+    margin-inline: calc(var(--carousel-inset) + 4px);
 
     border: 1px solid $color-border;
   }
 
   &__category {
-    min-height: 40px;
-    padding: 8px;
+    min-height: 38px;
+    padding: 6px 8px;
 
     border: none;
     border-right: 1px solid $color-border;
@@ -46,7 +55,7 @@
     background: $color-white;
     color: $color-text;
 
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 400;
 
     cursor: pointer;
@@ -70,10 +79,10 @@
     display: block;
     width: fit-content;
 
-    margin: 4px auto 0;
+    margin: 0 auto;
 
     color: $color-text;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
@@ -87,19 +96,24 @@
 
   &__carousel {
     position: relative;
+    margin-inline: var(--carousel-inset);
   }
 
   &__grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 60px) / 4);
-    gap: 20px;
+    grid-auto-columns: calc((100% - 54px) / 4);
+    gap: 18px;
 
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    // Keep the card shadow inside the viewport when snapping to each product.
+    scroll-padding-inline: 12px;
     scroll-behavior: smooth;
 
-    padding: 8px 0 16px;
+    padding: 16px 12px;
+    margin-top: -8px;
+    margin-inline: -8px;
 
     scrollbar-width: none;
 
@@ -124,8 +138,8 @@
     align-items: center;
     justify-content: center;
 
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
 
     border: none;
     border-radius: 50%;
@@ -142,11 +156,11 @@
       box-shadow $transition-default;
 
     &--left {
-      left: -18px;
+      left: -44px;
     }
 
     &--right {
-      right: -18px;
+      right: -44px;
     }
 
     &:hover {
@@ -173,17 +187,31 @@
   }
 }
 
+@media (max-width: 1399px) {
+  .product-showcase {
+    // Reserve space for the arrows when the outer page margins are smaller.
+    --carousel-inset: 28px;
+  }
+}
+
 @media (max-width: 1024px) {
   .product-showcase {
     &__grid {
-      grid-auto-columns: calc((100% - 20px) / 2);
+      grid-auto-columns: calc((100% - 18px) / 2);
     }
   }
 }
 
 @media (max-width: 768px) {
   .product-showcase {
+    padding-block: 32px;
+
+    &:last-child {
+      padding-bottom: 48px;
+    }
+
     &__title {
+      margin-inline: 0;
       gap: 12px;
       font-size: 20px;
     }
@@ -203,6 +231,7 @@
       flex: 0 0 auto;
       min-width: 110px;
       white-space: nowrap;
+      font-size: 12px;
     }
   }
 }
@@ -219,14 +248,6 @@
     &__arrow {
       width: 30px;
       height: 30px;
-
-      &--left {
-        left: -8px;
-      }
-
-      &--right {
-        right: -8px;
-      }
     }
   }
 }

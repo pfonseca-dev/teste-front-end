@@ -2,6 +2,15 @@
   "success": true,
   "products": [
     {
+      "productName": "Iphone 11 Teste",
+      "descriptionShort": "Card para Teste Geral",
+      "photo": "https://app.econverse.com.br/teste-front-end/junior/tecnologia/fotos-produtos/foto-iphone.png",
+      "price": 15000,
+      "oldPrice": 30.90,
+      "installments": 2,
+      "freeShipping": true
+    },
+    {
       "productName": "Iphone 11 PRO MAX BRANCO 1",
       "descriptionShort": "Iphone 11 PRO MAX BRANCO 1",
       "photo": "https://app.econverse.com.br/teste-front-end/junior/tecnologia/fotos-produtos/foto-iphone.png",

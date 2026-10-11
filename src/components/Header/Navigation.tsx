@@ -1,4 +1,4 @@
-import { Crown } from "lucide-react"
+import { coroaIcon } from "../../assets";
 
 const navigationLinks = [
   'TODAS CATEGORIAS',
@@ -24,7 +24,7 @@ export function Navigation() {
                 link === activeLink ? 'navigation__link--active' : ''
               }`}
             >
-              {link === 'ASSINATURA' && <Crown size={16} />}
+              {link === 'ASSINATURA' && <img src={coroaIcon} alt="" className="navigation__signature" />}
               {link}
             </a>
           </li>

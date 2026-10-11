@@ -7,7 +7,7 @@
     margin-bottom: 32px;
 
     color: $color-primary;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
   }
@@ -16,14 +16,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 40px;
 
-    max-width: 1100px;
+    max-width: 1240px;
     margin-inline: auto;
   }
 
   &__item {
-    flex: 0 1 180px;
+    flex: 0 1 210px;
     min-width: 0;
   }
 
@@ -52,7 +52,7 @@
 
   &__logo {
     display: block;
-    width: 65%;
+    width: 55%;
     max-height: 60px;
     object-fit: contain;
   }
@@ -110,7 +110,7 @@
     }
 
     &__logo {
-      width: 70%;
+      width: 60%;
     }
   }
 }

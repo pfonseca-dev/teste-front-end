@@ -6,15 +6,14 @@
 }
 
 .top-bar {
-  border-bottom: 1px solid $color-border;
-
   &__content {
     min-height: 32px;
+    position: relative;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 80px;
+    gap: 120px;
 
     font-size: 12px;
     color: $color-text-light;
@@ -22,19 +21,37 @@
     span {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+
     }
 
     strong {
-      color: $color-primary;
+      color: $color-highlight;
       font-weight: 600;
     }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: auto $container-padding 0;
+      height: 1px;
+      background: #f0f0f0;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    flex-shrink: 0;
+    object-fit: contain;
   }
 }
 
 .main-header {
   &__content {
-    min-height: 64px;
+    min-height: 72px;
+    gap: 32px;
 
     display: flex;
     align-items: center;
@@ -45,76 +62,139 @@
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    margin-right: 84px;
 
     img {
       display: block;
-      width: 130px;
+      width: 139px;
       height: auto;
     }
   }
 
   &__search {
-  position: relative;
+    position: relative;
 
-  width: 550px;
-  flex: 0 1 550px;
+    width: 630px;
+    flex: 0 1 630px;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
 
-  input {
-    width: 100%;
-    height: 48px;
+    input {
+      width: 100%;
+      height: 48px;
 
-    padding: 0 55px 0 20px;
+      padding: 0 55px 0 20px;
 
-    border: 0;
-    border-radius: $radius-md;
-    outline: none;
+      border: 0;
+      border-radius: $radius-md;
+      outline: none;
 
-    background: $color-background-light;
-    color: $color-text;
+      background: $color-background-light;
+      color: $color-text;
+      font-size: 14px;
 
-    &::placeholder {
-      color: $color-text-light;
+      &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+      }
+
+      &::placeholder {
+        color: $color-text-light;
+      }
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+
+      transform: translateY(-50%);
     }
   }
-
-  button {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-
-    transform: translateY(-50%);
-  }
-}
 
   &__actions {
     display: flex;
     align-items: center;
-    gap: 24px;
+    justify-content: center;
+
+    gap: 32px;
     flex-shrink: 0;
+  }
 
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      color: $color-text-light;
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
+  }
+
+  &__orders {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__favority {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__account {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__cart {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__search-image {
+    width: 28px;
+    height: 28px;
   }
 }
 
 .navigation {
-  border-top: 1px solid $color-border;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+
+  &__item {
+    color: $color-text-light;
+  }
 
   &__list {
-    min-height: 40px;
+    min-height: 38px;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    position: relative;
 
     font-size: 12px;
     font-weight: 600;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 $container-padding;
+      border-top: 1px solid #f0f0f0;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
   }
 
   &__link {
@@ -125,13 +205,18 @@
     transition: color $transition-default;
 
     &:hover {
-      color: $color-primary;
+      color: $color-highlight;
     }
     
     &--active {
-      color: $color-primary;
+      color: $color-highlight;
       font-weight: 600;
     }
+  }
+
+  &__signature{
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -148,6 +233,8 @@
     }
 
     &__logo {
+      margin-right: 0;
+
       img {
         width: 120px;
       }
@@ -185,7 +272,7 @@
       gap: 16px;
     }
 
-    span {
+    &__content > span {
       font-size: 11px;
 
       &:not(:first-child) {
@@ -215,6 +302,7 @@
     &__search {
       order: 3;
       flex-basis: 100%;
+      margin: 0;
     }
   }
 

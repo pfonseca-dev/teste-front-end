@@ -1,12 +1,12 @@
 @use '../../styles/variables' as *;
 
 .partner-banner {
-  padding-block: 40px;
+  padding-block: 24px 52px;
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: 12px;
   }
 
   &__card {
@@ -15,16 +15,23 @@
     display: flex;
     align-items: flex-end;
 
-    min-height: 260px;
-    padding: 32px;
+    min-height: 350px;
+    padding: 40px 44px;
 
     border-radius: $radius-big;
 
     background-position: center;
-    background-size: cover;
+    background-size: auto, 115%;
     background-repeat: no-repeat;
 
     overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.65));
+    }
   }
 
   &__content {
@@ -34,12 +41,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
   }
 
   &__title {
     color: $color-white;
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
     line-height: 1.2;
   }
@@ -54,19 +61,22 @@
   }
 
   &__button {
-    min-width: 130px;
-    min-height: 40px;
+    min-width: 144px;
+    min-height: 48px;
+    margin-top: 16px;
 
     padding: 10px 20px;
 
     border: none;
-    border-radius: $radius-md;
+    border-radius: 6px;
 
     background: $color-accent;
     color: #000;
 
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 
     cursor: pointer;
 
@@ -93,6 +103,7 @@
     &__card {
       min-height: 240px;
       padding: 24px;
+      background-size: cover;
     }
 
     &__content {

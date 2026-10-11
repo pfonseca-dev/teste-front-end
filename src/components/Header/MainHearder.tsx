@@ -1,5 +1,11 @@
-import { Logo } from "../../assets/index";
-import { Search, Heart, UserRound, ShoppingCart, Package } from "lucide-react";
+import { 
+    Logo,
+    buscarIcon,
+    carrinhoIcon,
+    contaIcon,
+    favoritosIcon,
+    pedidoIcon,
+} from "../../assets/index";
 
 export function MainHeader() {
   return (
@@ -11,14 +17,22 @@ export function MainHeader() {
             <form className="main-header__search">
                 <input type="search" placeholder="O que você está buscando?" aria-label="Buscar produtos" />
                 <button type="submit" aria-label="Buscar">
-                    <Search size={20} />
+                    <img src={buscarIcon} alt="" className="main-header__search-image" />
                 </button>
             </form>
             <nav className="main-header__actions" aria-label="Ações do usuário">
-                <button className="main-header__action" aria-label="Pedidos"><Package size={20} /></button>
-                <button className="main-header__action" aria-label="Favoritos"><Heart size={20} /></button>
-                <button className="main-header__action" aria-label="Minha Conta"><UserRound size={20} /></button>
-                <button className="main-header__action" aria-label="Carrinho de compras"><ShoppingCart size={20} /></button>
+                <button className="main-header__action" aria-label="Pedidos">
+                    <img src={pedidoIcon} alt="" className="main-header__orders" />
+                </button>
+                <button className="main-header__action" aria-label="Favoritos">
+                    <img src={favoritosIcon} alt="" className="main-header__favority" />
+                </button>
+                <button className="main-header__action" aria-label="Minha Conta">
+                    <img src={contaIcon} alt="" className="main-header__account" />
+                </button>
+                <button className="main-header__action" aria-label="Carrinho de compras">
+                    <img src={carrinhoIcon} alt="" className="main-header__cart" />
+                </button>
             </nav>
         </div>
     </div>

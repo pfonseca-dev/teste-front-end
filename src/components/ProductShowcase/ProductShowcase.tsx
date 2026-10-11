@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { useProduct } from "../../hooks/useProduct";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { ProductModal } from "../ProductModal/ProductModal";
 import type { Product } from "../../types/product";
@@ -20,11 +19,13 @@ const productCategorie = [
 
 interface ProductShowcaseProps {
     showCategories?: boolean;
+    products: Product[];
+    loading: boolean;
+    error: string | null;
 }
 
-export function ProductShowcase({ showCategories = true }: ProductShowcaseProps) {
-    const { products, loading, error } = useProduct();
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+export function ProductShowcase({ showCategories = true, products, loading, error }: ProductShowcaseProps) {
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
     const carouselRef = useRef<HTMLDivElement>(null);
 

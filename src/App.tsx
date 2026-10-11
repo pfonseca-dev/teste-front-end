@@ -11,8 +11,6 @@ import { Footer } from "./components/Footer/Footer"
 function App() {
   const { products, loading, error } = useProduct();
 
-  console.log({ products, loading, error });
-
   return (
     <>
       <Header />
@@ -20,12 +18,12 @@ function App() {
       <main>
         <Hero />
         <Categories />
-        <ProductShowcase />
+        <ProductShowcase products={products} loading={loading} error={error}/>
         <PartnerBanner />
-        <ProductShowcase showCategories = {false} />
+        <ProductShowcase showCategories= {false} products={products} loading={loading} error={error}/>
         <PartnerBanner />
         <Brands />
-        <ProductShowcase showCategories = {false} />
+        <ProductShowcase showCategories= {false} products={products} loading={loading} error={error}/>
       </main>
       <Newsletter />
       <Footer />

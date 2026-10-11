@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { X, Minus, Plus } from 'lucide-react';
 
 import type { Product } from '../../types/product';
@@ -13,23 +13,71 @@ interface ProductModalProps {
 export function ProductModal({ product, onClose }: ProductModalProps) {
   const [quantity, setQuantity] = useState(1);
 
+  const modalRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
+    const modal = modalRef.current;
+
+    if (!modal) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement;
+
+    document.body.style.overflow = 'hidden';
+
+    const focusableElements = () =>
+      Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => element.getClientRects().length > 0);
+
+    focusableElements()[0]?.focus();
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
-        onClose()
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const elements = focusableElements();
+
+      if (elements.length === 0) {
+        event.preventDefault();
+        modal?.focus();
+        return;
+      }
+
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+
+      if (event.shiftKey) {
+        if (document.activeElement === first || !modal?.contains(document.activeElement)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last || !modal?.contains(document.activeElement)) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown)
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+
+      if (previousFocus instanceof HTMLElement) {
+        previousFocus.focus();
+      }
     };
-  }, [onClose])
+  }, [onClose]);
 
   function decreaseQuantity() { setQuantity((current) => Math.max(1, current - 1)) }
 
@@ -40,7 +88,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
         if (event.target === event.currentTarget) { onClose() }
       }}
     >
-      <div className="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" aria-describedby="product-modal-description">
+      <div ref={modalRef} tabIndex={-1} className="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" aria-describedby="product-modal-description">
         <button type="button" className="product-modal__close" aria-label="Fechar detalhes do produto" onClick={onClose}>
           <X size={22} />
         </button>
@@ -62,7 +110,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             {product.descriptionShort}
           </p>
 
-          <a href="product_details" className="product-modal__details" onClick={(event) => event.preventDefault()}>
+          <a className="product-modal__details">
             Veja mais detalhes do produto &gt;
           </a>
 
