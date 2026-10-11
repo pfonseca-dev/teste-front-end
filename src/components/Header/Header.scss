@@ -1,0 +1,315 @@
+@use '../../styles/variables' as *;
+
+.header {
+  width: 100%;
+  background: $color-white;
+}
+
+.top-bar {
+  &__content {
+    min-height: 32px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 120px;
+
+    font-size: 12px;
+    color: $color-text-light;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+    }
+
+    strong {
+      color: $color-highlight;
+      font-weight: 600;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: auto $container-padding 0;
+      height: 1px;
+      background: #f0f0f0;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+}
+
+.main-header {
+  &__content {
+    min-height: 72px;
+    gap: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 84px;
+
+    img {
+      display: block;
+      width: 139px;
+      height: auto;
+    }
+  }
+
+  &__search {
+    position: relative;
+
+    width: 630px;
+    flex: 0 1 630px;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    input {
+      width: 100%;
+      height: 48px;
+
+      padding: 0 55px 0 20px;
+
+      border: 0;
+      border-radius: $radius-md;
+      outline: none;
+
+      background: $color-background-light;
+      color: $color-text;
+      font-size: 14px;
+
+      &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+      }
+
+      &::placeholder {
+        color: $color-text-light;
+      }
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+
+      transform: translateY(-50%);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 32px;
+    flex-shrink: 0;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__orders {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__favority {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__account {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__cart {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__search-image {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.navigation {
+
+  &__item {
+    color: $color-text-light;
+  }
+
+  &__list {
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 $container-padding;
+      border-top: 1px solid #f0f0f0;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    transition: color $transition-default;
+
+    &:hover {
+      color: $color-highlight;
+    }
+    
+    &--active {
+      color: $color-highlight;
+      font-weight: 600;
+    }
+  }
+
+  &__signature{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .top-bar {
+    &__content {
+      gap: 32px;
+    }
+  }
+
+  .main-header {
+    &__content {
+      gap: 20px;
+    }
+
+    &__logo {
+      margin-right: 0;
+
+      img {
+        width: 120px;
+      }
+    }
+
+    &__actions {
+      gap: 16px;
+    }
+  }
+
+  .navigation {
+    &__list {
+      gap: 32px;
+      overflow-x: auto;
+      justify-content: flex-start;
+
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__link {
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    &__content {
+      min-height: 32px;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    &__content > span {
+      font-size: 11px;
+
+      &:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+
+  .main-header {
+    &__content {
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-block: 12px;
+    }
+
+    &__logo {
+      img {
+        width: 110px;
+      }
+    }
+
+    &__actions {
+      margin-left: auto;
+      gap: 12px;
+    }
+
+    &__search {
+      order: 3;
+      flex-basis: 100%;
+      margin: 0;
+    }
+  }
+
+  .navigation {
+    &__list {
+      overflow-x: auto;
+      gap: 24px;
+    }
+  }
+}

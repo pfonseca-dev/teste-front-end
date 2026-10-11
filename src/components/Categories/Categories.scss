@@ -1,0 +1,155 @@
+@use '../../styles/variables' as *;
+
+.categories {
+  padding-block: 40px 48px;
+
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 1160px;
+    margin-inline: auto;
+  }
+
+  &__item {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__button {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+
+    color: $color-text;
+
+    transition:
+      color $transition-default,
+      transform $transition-default;
+
+    &:hover {
+      color: $color-highlight;
+
+      .categories__icon {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+      }
+    }
+  }
+
+  &__icon {
+    width: 128px;
+    height: 128px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: $radius-lg;
+    background: $color-categories;
+    box-shadow: $shadow-card;
+
+    transition:
+      background-color $transition-default,
+      color $transition-default,
+      transform $transition-default;
+  }
+
+  &__image {
+    display: block;
+
+    width: 61px;
+    height: 61px;
+
+    object-fit: contain;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  &__item--active {
+    .categories__icon {
+      background: $color-white;
+      color: $color-highlight;
+    }
+
+    .categories__label {
+      color: $color-highlight;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .categories {
+    &__list {
+      justify-content: flex-start;
+      gap: 20px;
+
+      overflow-x: auto;
+      padding: 8px 4px 12px;
+
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__item {
+      flex: 0 0 auto;
+    }
+
+    &__button {
+      width: 100px;
+    }
+
+    &__icon {
+      width: 90px;
+      height: 90px;
+    }
+
+    &__image {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .categories {
+    padding-block: 24px;
+
+    &__list {
+      gap: 16px;
+    }
+
+    &__button {
+      width: 86px;
+      gap: 10px;
+    }
+
+    &__icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    &__image {
+      width: 44px;
+      height: 44px;
+    }
+
+    &__label {
+      font-size: 11px;
+      white-space: normal;
+    }
+  }
+}

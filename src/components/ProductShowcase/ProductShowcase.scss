@@ -1,0 +1,253 @@
+@use '../../styles/variables' as *;
+
+.product-showcase {
+  --carousel-inset: 0px;
+
+  padding-block: 48px;
+
+  &:last-child {
+    padding-bottom: 78px;
+  }
+
+  &__header {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+
+    margin: 0 70px;
+
+    color: $color-primary;
+    font-size: 30px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-align: center;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: $color-border;
+    }
+  }
+
+  &__categories {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    // Match the card edges, accounting for the grid's shadow padding.
+    margin-inline: calc(var(--carousel-inset) + 4px);
+
+    border: 1px solid $color-border;
+  }
+
+  &__category {
+    min-height: 38px;
+    padding: 6px 8px;
+
+    border: none;
+    border-right: 1px solid $color-border;
+
+    background: $color-white;
+    color: $color-text;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    cursor: pointer;
+    transition: color $transition-default;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+      font-weight: 700;
+    }
+  }
+
+  &__view-all {
+    display: block;
+    width: fit-content;
+
+    margin: 0 auto;
+
+    color: $color-text;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+
+    transition: color $transition-default;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__carousel {
+    position: relative;
+    margin-inline: var(--carousel-inset);
+  }
+
+  &__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 54px) / 4);
+    gap: 18px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    // Keep the card shadow inside the viewport when snapping to each product.
+    scroll-padding-inline: 12px;
+    scroll-behavior: smooth;
+
+    padding: 16px 12px;
+    margin-top: -8px;
+    margin-inline: -8px;
+
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-card {
+      min-width: 0;
+      scroll-snap-align: start;
+    }
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: $color-white;
+    color: $color-text;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    transition:
+      color $transition-default,
+      box-shadow $transition-default;
+
+    &--left {
+      left: -44px;
+    }
+
+    &--right {
+      right: -44px;
+    }
+
+    &:hover {
+      color: $color-primary;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 3px;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__message {
+    padding: 40px 0;
+
+    text-align: center;
+    color: $color-text;
+  }
+}
+
+@media (max-width: 1399px) {
+  .product-showcase {
+    // Reserve space for the arrows when the outer page margins are smaller.
+    --carousel-inset: 28px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-showcase {
+    &__grid {
+      grid-auto-columns: calc((100% - 18px) / 2);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .product-showcase {
+    padding-block: 32px;
+
+    &:last-child {
+      padding-bottom: 48px;
+    }
+
+    &__title {
+      margin-inline: 0;
+      gap: 12px;
+      font-size: 20px;
+    }
+
+    &__categories {
+      display: flex;
+      overflow-x: auto;
+
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__category {
+      flex: 0 0 auto;
+      min-width: 110px;
+      white-space: nowrap;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .product-showcase {
+    padding-block: 20px;
+
+    &__grid {
+      grid-auto-columns: 100%;
+      gap: 16px;
+    }
+
+    &__arrow {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
